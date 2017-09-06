@@ -36,10 +36,6 @@ header.page-header {
 	padding: 20px;
 }
 
-main {
-	min-height: 67%;
-}
-
 .btn input[type="button"]{
 	display: block;
 	border: 2px solid #ffffff;
@@ -57,6 +53,10 @@ input[type="button"]:hover {
 
 input[type="button"]:active {
 	background-color: #292934;
+}
+
+main {
+	min-height: 67%;
 }
 
 .test-menu {
@@ -89,6 +89,16 @@ input[type="button"]:active {
 	padding: 3px 5px;
 	width: 50%;
 	height: 100px;
+}
+
+.test-bottom input[type="button"]:active.right {
+	border: 2px dashed #ffffff;
+	background-color: #00c2f6;
+}
+
+.test-bottom input[type="button"]:active.wrong {
+	border: 2px dashed #ffffff;
+	background-color: #f44d69;
 }
 
 footer.page-footer {
