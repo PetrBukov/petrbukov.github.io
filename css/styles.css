@@ -252,6 +252,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-weight: bold;
 }
 .page-footer a {
     color: #fff;
