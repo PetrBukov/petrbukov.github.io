@@ -1,0 +1,259 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.table-layout {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.header-table-row,
+.footer-table-row {
+    display: table-row;
+    height: 1px;
+}
+.main-table-row {
+    height: 100%;
+}
+.page-header,
+.page-footer {
+    background-color: #b71c1c;
+}
+
+.page-footer {
+    height: 50px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-header__logo {
+    width: 52px;
+    height: 40px;
+    font-size: 0;
+    margin: 5px;
+    flex-shrink: 0;
+}
+
+.page-header__logo img {
+    width: 100%;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.main-menu__item {
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
+    transition: 0.5s;
+    background-color: #b71c1c;
+}
+
+.main-menu__item:hover {
+    background-color: #d32f2f;
+}
+
+main {
+    background-color: #505050;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cards-list {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.player-card {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    height: 360px;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #b71c1c;
+    border-radius: 5px;
+    background: #ffcdd2 url(../img/escheresque-dark.png);
+
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-weight: bold;
+
+    box-shadow: #2f2f2f 0px 0px 0px;
+    transition: 0.5s;
+}
+.player-card:hover {
+    box-shadow: #2f2f2f 4px 4px 10px;
+}
+.player-card:hover img {
+    -webkit-animation: colorFlow 5s infinite ease;
+    -o-animation: colorFlow 5s infinite ease;
+    animation: colorFlow 5s infinite ease;
+}
+.player-card__header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #b71c1c;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 5px;
+}
+.player-card__photo {
+    display: flex;
+    justify-content: center;
+    background: #fff url('../img/escheresque-dark.png');
+    background-position: -5px -5px;
+    border: 1px solid #b71c1c;
+    margin-bottom: 5px;
+    overflow: hidden;
+    /*background-image: linear-gradient(to right, #b71c1c, #fff, #b71c1c);*/
+}
+.player-card__photo img {
+    filter: drop-shadow(0 0 30px #fff);
+}
+.player-card__current-points {
+    position: relative;
+    padding-left: 17px;
+}
+.player-card__current-points::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 13px;
+    height: 13px;
+    background-image: url('../img/heart.png');
+    animation: heartbeat 1s infinite linear;
+}
+
+.player-card__points-list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5px;
+    color: #b71c1c;
+    background-color: #fff;
+    border: 1px solid #b71c1c;
+    margin-bottom: 5px;
+}
+
+.player-card__footer {
+    display: flex;
+}
+.player-card__footer input {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #b71c1c;
+    color: #b71c1c;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-weight: bold;
+    border-bottom-left-radius: 5px;
+}
+.player-card__footer button {
+    padding: 5px;
+    background-color: #b71c1c;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-weight: bold;
+    border-bottom-right-radius: 5px;
+    transition: 0.5s;
+}
+.player-card__footer button:hover {
+    background-color: #d32f2f;
+    cursor: pointer;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1.0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1.0)
+    }
+}
+
+@keyframes colorFlow {
+    0% {
+        filter: drop-shadow(0 0 30px #fff) hue-rotate(0deg);
+    }
+    25% {
+        filter: drop-shadow(0 0 30px #fff) hue-rotate(20deg);
+    }
+    50% {
+        filter: drop-shadow(0 0 30px #fff) hue-rotate(-20deg);
+    }
+    100% {
+        filter: drop-shadow(0 0 30px #fff) hue-rotate(0deg);
+    }
+}
+
+.add-player-card {
+    width: 240px;
+    padding: 15px;
+    background-color: #b71c1c;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 10px;
+    height: 44px;
+    opacity: 0.5;
+    transition: 0.5s;
+    cursor: pointer;
+
+    box-shadow: #2f2f2f 0px 0px 0px;
+}
+.add-player-card:hover {
+    opacity: 1;
+    box-shadow: #2f2f2f 4px 4px 10px;
+}
+
+.page-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.page-footer a {
+    color: #fff;
+    display: none;
+}
