@@ -7,98 +7,91 @@
     <link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 </head>
 <body>
-    <div class="table-layout">
-        <div class="header-table-row">
-            <header class="page-header">
-                <div class="page-header__logo">
-                    <img src="img/header-logo.png" alt="Логотип - UNO counter online">
+    <header class="page-header">
+        <div class="page-header__logo">
+            <img src="img/header-logo.png" alt="Логотип - UNO counter online">
+        </div>
+        <nav class="main-menu">
+            <a href="#" class="main-menu__item">Правила игры</a>
+            <a href="#" class="main-menu__item">Новая игра</a>
+            <a href="#" class="main-menu__item">Подсчитать очки</a>
+            <a href="#" class="main-menu__item">Настройки</a>
+        </nav>
+    </header>
+    <main>
+        <div class="cards-list">
+            <div class="player-card">
+                <header class="player-card__header">
+                    <div class="player-card__name">Глойн</div>
+                    <div class="player-card__current-points">254</div>
+                </header>
+                <div class="player-card__photo">
+                    <img src="img/player-card__photo/1.png" alt="">
                 </div>
-                <nav class="main-menu">
-                    <a href="#" class="main-menu__item">Правила игры</a>
-                    <a href="#" class="main-menu__item">Новая игра</a>
-                    <a href="#" class="main-menu__item">Подсчитать очки</a>
-                    <a href="#" class="main-menu__item">Настройки</a>
-                </nav>
-            </header>
-        </div>
-        <div class="main-table-row">
-            <main>
-                <div class="cards-list">
-                    <div class="player-card">
-                        <header class="player-card__header">
-                            <div class="player-card__name">Глойн</div>
-                            <div class="player-card__current-points">254</div>
-                        </header>
-                        <div class="player-card__photo">
-                            <img src="img/player-card__photo/1.png" alt="">
-                        </div>
-                        <div class="player-card__points-list">
-                            <div class="player-card__points-list-item">-151 очко</div>
-                            <div class="player-card__points-list-item">- 12 очков</div>
-                            <div class="player-card__points-list-item">- 33 очка</div>
-                            <div class="player-card__points-list-item">- 50 очков</div>
-                        </div>
-                        <div class="player-card__footer">
-                            <input type="number">
-                            <button>OK</button>
-                        </div>
-                    </div>
-
-                    <div class="player-card">
-                        <header class="player-card__header">
-                            <div class="player-card__name">Трайн</div>
-                            <div class="player-card__current-points">254</div>
-                        </header>
-                        <div class="player-card__photo">
-                            <img src="img/player-card__photo/4.png" alt="">
-                        </div>
-                        <div class="player-card__points-list">
-                            <div class="player-card__points-list-item">-151 очко</div>
-                            <div class="player-card__points-list-item">- 12 очков</div>
-                            <div class="player-card__points-list-item">- 33 очка</div>
-                            <div class="player-card__points-list-item">- 50 очков</div>
-                        </div>
-                        <div class="player-card__footer">
-                            <input type="number">
-                            <button>OK</button>
-                        </div>
-                    </div>
-
-                    <div class="player-card">
-                        <header class="player-card__header">
-                            <div class="player-card__name">Билли</div>
-                            <div class="player-card__current-points">254</div>
-                        </header>
-                        <div class="player-card__photo">
-                            <img src="img/player-card__photo/3.png" alt="">
-                        </div>
-                        <div class="player-card__points-list">
-                            <div class="player-card__points-list-item">-151 очко</div>
-                            <div class="player-card__points-list-item">- 12 очков</div>
-                            <div class="player-card__points-list-item">- 33 очка</div>
-                            <div class="player-card__points-list-item">- 50 очков</div>
-                        </div>
-                        <div class="player-card__footer">
-                            <input type="number">
-                            <button>OK</button>
-                        </div>
-                    </div>
-
-                    <div class="add-player-card">
-                        Добавить игрока...
-                    </div>
+                <div class="player-card__points-list">
+                    <div class="player-card__points-list-item">-151 очко</div>
+                    <div class="player-card__points-list-item">- 12 очков</div>
+                    <div class="player-card__points-list-item">- 33 очка</div>
+                    <div class="player-card__points-list-item">- 50 очков</div>
                 </div>
-            </main>
+                <div class="player-card__footer">
+                    <input type="number">
+                    <button>OK</button>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <header class="player-card__header">
+                    <div class="player-card__name">Трайн</div>
+                    <div class="player-card__current-points">254</div>
+                </header>
+                <div class="player-card__photo">
+                    <img src="img/player-card__photo/4.png" alt="">
+                </div>
+                <div class="player-card__points-list">
+                    <div class="player-card__points-list-item">-151 очко</div>
+                    <div class="player-card__points-list-item">- 12 очков</div>
+                    <div class="player-card__points-list-item">- 33 очка</div>
+                    <div class="player-card__points-list-item">- 50 очков</div>
+                </div>
+                <div class="player-card__footer">
+                    <input type="number">
+                    <button>OK</button>
+                </div>
+            </div>
+
+            <div class="player-card">
+                <header class="player-card__header">
+                    <div class="player-card__name">Билли</div>
+                    <div class="player-card__current-points">254</div>
+                </header>
+                <div class="player-card__photo">
+                    <img src="img/player-card__photo/3.png" alt="">
+                </div>
+                <div class="player-card__points-list">
+                    <div class="player-card__points-list-item">-151 очко</div>
+                    <div class="player-card__points-list-item">- 12 очков</div>
+                    <div class="player-card__points-list-item">- 33 очка</div>
+                    <div class="player-card__points-list-item">- 50 очков</div>
+                </div>
+                <div class="player-card__footer">
+                    <input type="number">
+                    <button>OK</button>
+                </div>
+            </div>
+
+            <div class="add-player-card">
+                Добавить игрока...
+            </div>
         </div>
-        <div class="footer-table-row">
-            <footer class="page-footer">
-                САЙТ НАХОДИТЬСЯ В РАЗРАБОТКЕ, ПРИНОСИМ ИЗВИНЕНИЯ ЗА НЕУДОБСТВА!
-                <a href='https://ru.freepik.com/free-vector/векторы_1528571.htm'>Большое спасибо Freepik за бесплатные вектора</a>
-                <a href="https://ru.freepik.com/free-vector/_1528574.htm">Большое спасибо Freepik за бесплатные вектора</a>
-                <a href="https://ru.freepik.com/free-vector/_887838.htm">Большое спасибо Freepik за бесплатные вектора</a>
-            </footer>
-        </div>
-    </div>
+    </main>
+    <footer class="page-footer">
+        САЙТ НАХОДИТЬСЯ В РАЗРАБОТКЕ, ПРИНОСИМ ИЗВИНЕНИЯ ЗА НЕУДОБСТВА!
+        <a href='https://ru.freepik.com/free-vector/векторы_1528571.htm'>Большое спасибо Freepik за бесплатные вектора</a>
+        <a href="https://ru.freepik.com/free-vector/_1528574.htm">Большое спасибо Freepik за бесплатные вектора</a>
+        <a href="https://ru.freepik.com/free-vector/_887838.htm">Большое спасибо Freepik за бесплатные вектора</a>
+    </footer>
+
 
     <script src="js/script.js"></script>
 </body>
