@@ -1,6 +1,6 @@
 let cardsData = [
     {
-        playerName: 'Глойн',
+        playerName: 'Морти',
         currentPoints: 219,
         pointsList: [-151, -130],
         playerCardPhoto: ''
@@ -13,7 +13,7 @@ function randomInteger(min, max) {
     return rand;
 }
 
-let makeElement = function (tagName, className, text) {
+function makeElement(tagName, className, text) {
     let element = document.createElement(tagName);
     element.classList.add(className);
     if (text) {
@@ -22,17 +22,31 @@ let makeElement = function (tagName, className, text) {
     return element;
 };
 
-let createCard = function (product) {
+function getPlayerName() {
+    let playerName = prompt("Ведите ваше имя:", '');
+    return playerName
+}
+
+function addCardData(name) {
+    cardData(cardsData.length) = {
+        playerName: name,
+        currentPoints: '',
+        pointsList: [],
+        playerCardPhoto: ''
+    }
+}
+
+function createCard(name) {
     //создаем карточку игрока
     let listItem = makeElement('div', 'player-card');
     //создаем шапку карточки игрока
     let header = makeElement('header', 'player-card__header');
     listItem.appendChild(header);
 
-    let playerCardName = makeElement('div', 'player-card__name', product.playerName);
+    let playerCardName = makeElement('div', 'player-card__name', name);
     header.appendChild(playerCardName);
 
-    let playerCardCurrentPoints = makeElement('div', 'player-card__current-points', product.currentPoints);
+    let playerCardCurrentPoints = makeElement('div', 'player-card__current-points', 500);
     header.appendChild(playerCardCurrentPoints);
     //создаем блок с картинкой
     let playerCardPhoto = makeElement('div', 'player-card__photo');
@@ -40,7 +54,7 @@ let createCard = function (product) {
 
     let cardImg = makeElement('img', 'player-card__img');
     cardImg.src = 'img/player-card__photo/' + randomInteger(0, 16) + '.png';
-    cardImg.alt = 'Карточка игрока ' + product.name;
+    cardImg.alt = 'Карточка игрока ' + name;
     playerCardPhoto.appendChild(cardImg);
 
     //создаем блок с перечнем очков
@@ -48,11 +62,11 @@ let createCard = function (product) {
     listItem.appendChild(playerCardPointsList);
 
     //ВРЕМЕННО для отладки создаем очки предыдущих раундов
-    let playerCardPointsListItem1 = makeElement('div', 'player-card__points-list-item', '-151');
-    playerCardPointsList.appendChild(playerCardPointsListItem1);
+    // let playerCardPointsListItem1 = makeElement('div', 'player-card__points-list-item', '-151');
+    // playerCardPointsList.appendChild(playerCardPointsListItem1);
 
-    let playerCardPointsListItem2 = makeElement('div', 'player-card__points-list-item', '-151');
-    playerCardPointsList.appendChild(playerCardPointsListItem2);
+    // let playerCardPointsListItem2 = makeElement('div', 'player-card__points-list-item', '-151');
+    // playerCardPointsList.appendChild(playerCardPointsListItem2);
 
     //Создаем футер карточки
     let playerCardFooter = makeElement('div', 'player-card__footer');
@@ -68,9 +82,13 @@ let createCard = function (product) {
     return listItem;
 };
 
-let cardsList = document.querySelector('.cards-list');
+// кнопка создания карточки
+let buttonCreateCard = document.querySelector('.add-player-card');
 
-for (let i = 0; i < cardsData.length; i++) {
-    let cardItem = createCard(cardsData[i]);
-    cardsList.appendChild(cardItem);
+function addPlayerCard() {
+	let cardsList = document.querySelector('.cards-list');
+	let cardItem = createCard(getPlayerName());
+	cardsList.appendChild(cardItem);
 }
+
+buttonCreateCard.addEventListener('click', addPlayerCard);
