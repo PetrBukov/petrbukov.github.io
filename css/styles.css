@@ -113,11 +113,11 @@ main {
 .player-card:hover {
     box-shadow: #2f2f2f 4px 4px 10px;
 }
-.player-card:hover img {
-    -webkit-animation: colorFlow 5s infinite ease;
-    -o-animation: colorFlow 5s infinite ease;
-    animation: colorFlow 5s infinite ease;
-}
+/*.player-card:hover img {*/
+    /*-webkit-animation: colorFlow 5s infinite ease;*/
+    /*-o-animation: colorFlow 5s infinite ease;*/
+    /*animation: colorFlow 5s infinite ease;*/
+/*}*/
 .player-card__header {
     display: flex;
     justify-content: space-between;
@@ -225,7 +225,7 @@ main {
     }
 }
 
-.add-player-card {
+.add-player-btn {
     width: 240px;
     padding: 15px;
     background-color: #b71c1c;
@@ -240,10 +240,10 @@ main {
     opacity: 0.5;
     transition: 0.5s;
     cursor: pointer;
-
+    order: 1;
     box-shadow: #2f2f2f 0px 0px 0px;
 }
-.add-player-card:hover {
+.add-player-btn:hover {
     opacity: 1;
     box-shadow: #2f2f2f 4px 4px 10px;
 }
