@@ -135,8 +135,31 @@ main {
     border: 1px solid #b71c1c;
     margin-bottom: 5px;
     overflow: hidden;
+    position: relative;
     /*background-image: linear-gradient(to right, #b71c1c, #fff, #b71c1c);*/
 }
+
+.wasted {
+    filter: grayscale(90%);
+}
+.wasted .player-card__photo::after {
+    content: 'Проиграл';
+    display: block;
+    color: #fff;
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 3px dashed #fff;
+    text-transform: uppercase;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(183, 28, 28, 0.5);
+}
+
 .player-card__photo img {
     filter: drop-shadow(0 0 30px #fff);
 }
@@ -160,11 +183,13 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 5px;
     color: #b71c1c;
     background-color: #fff;
     border: 1px solid #b71c1c;
     margin-bottom: 5px;
+    height: 110px;
+    padding: 5px;
+    overflow: hidden;
 }
 
 .player-card__footer {

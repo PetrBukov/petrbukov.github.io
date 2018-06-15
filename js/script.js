@@ -1,35 +1,55 @@
 // a temporary base for the storage of information about the game
 let playersData = [
-    {
-    	playerName: 'Рик Санчез',
-    	currentPoints: 0,
-    	pointsList: [0, -250, -90, 0],
-        playerAvatar: 'img/player-card__photo/9.png',
-    },
-    {
-    	playerName: 'Морти Смит',
-    	currentPoints: 40,
-    	pointsList: [-200, 0, -100, -160, 9],
-        playerAvatar: 'img/player-card__photo/11.png',
-    },
-    {
-    	playerName: 'Джерри Смит',
-    	currentPoints: 1,
-    	pointsList: [-200, -200, 0, -99],
-        playerAvatar: 'img/player-card__photo/2.png',
-    },
-    {
-    	playerName: 'Бэт Смит',
-    	currentPoints: 480,
-    	pointsList: [-5, -5, -5, -5],
-        playerAvatar: 'img/player-card__photo/3.png',
-    }
+    // {
+    //  playerName: 'Рик Санчез',
+    //  currentPoints: 0,
+    //  pointsList: [0, -250, -90, 0],
+    //     playerAvatar: 'img/player-card__photo/9.png',
+    //     avatarModificator: 40,
+    // },
+    // {
+    //  playerName: 'Морти Смит',
+    //  currentPoints: 40,
+    //  pointsList: [-200, 0, -100, -160, 9],
+    //     playerAvatar: 'img/player-card__photo/11.png',
+    //     avatarModificator: 50,
+    // },
+    // {
+    //  playerName: 'Джерри Смит',
+    //  currentPoints: 1,
+    //  pointsList: [-200, -200, 0, -99],
+    //     playerAvatar: 'img/player-card__photo/2.png',
+    //     avatarModificator: 70,
+    // },
+    // {
+    //  playerName: 'Бэт Смит',
+    //  currentPoints: 480,
+    //  pointsList: [-5, -5, -5, -5],
+    //     playerAvatar: 'img/player-card__photo/3.png',
+    //     avatarModificator: 8,
+    // }
 ];
+
+let gameRules = {
+    numberOfLives: 500,
+};
 
 // Code
 
 displayCards(playersData);
 addListenerToAddPlayerBtn();
+
+let btnNewGame = document.querySelector('.start-new-game-btn');
+    btnNewGame.addEventListener('click', startNewGame);
+
+let btnNewRound = document.querySelector('.start-new-round-btn');
+    btnNewRound.addEventListener('click', startNewRound);
+
+let btnSettings = document.querySelector('.settings-btn');
+    btnSettings.addEventListener('click', displaySettings);
+
+let btnGameRules = document.querySelector('.game-rules-btn');
+    btnGameRules.addEventListener('click', displayGameRules);
 
 // functions
 
@@ -58,9 +78,14 @@ function createCard(playerData) {
     let playerCardPhoto = makeElement('div', 'player-card__photo');
     listItem.appendChild(playerCardPhoto);
 
+    if (playerData.currentPoints <= 0) {
+        listItem.classList.add('wasted');
+    }
+
     let cardImg = makeElement('img', 'player-card__img');
     cardImg.src = playerData.playerAvatar;
     cardImg.alt = 'Карточка игрока ' + playerData.playerName;
+    cardImg.style.cssText = "filter: hue-rotate(" + playerData.avatarModificator + "deg)";
     playerCardPhoto.appendChild(cardImg);
 
     //создаем блок с перечнем очков
@@ -117,9 +142,9 @@ function addListenerToAddPlayerBtn() {
 
 function addPoints() {
     let playerId = this.parentNode.parentNode.id;
-    let pointsValue = +getValue(playerId);
-    if (pointsValue === undefined || !isNumeric(pointsValue) || pointsValue <= 0) {
-        alert('Сумма очков должна быть положительным числом ;)');
+    let pointsValue = getValue(playerId);
+    if (pointsValue === undefined || !isNumeric(pointsValue) || pointsValue < 0) {
+        alert('Сумма очков должна быть положительным числом или равна нулю!');
         return;
     }
     let playerIndex = takeNumberFromString(playerId);
@@ -156,9 +181,10 @@ function createNewPlayer() {
     let playerIndex = playersData.length;
     playersData[playerIndex] = {};
     playersData[playerIndex].playerName = prompt('Введите имя игрока', '');
-    playersData[playerIndex].currentPoints = 500;
+    playersData[playerIndex].currentPoints = gameRules.numberOfLives;
     playersData[playerIndex].pointsList = [];
     playersData[playerIndex].playerAvatar = 'img/player-card__photo/' + randomInteger(0, 16) + '.png';
+    playersData[playerIndex].avatarModificator = randomInteger(0, 360);
     let cardsList = document.querySelector('.cards-list');
     let card = createCard(playersData[playerIndex]);
     card.id = 'player-' + playerIndex;
@@ -172,35 +198,45 @@ function getValue(parentId) {
 }
 
 function startNewGame() {
-
+    let isConfirm = confirm("Вы уверены, что хотите начать новую игру? Информация о текущих игроках будет удалена!");
+    if (isConfirm) {
+        playersData = [];
+        removeAllCards();
+    } else {
+        return;
+    }
 }
 
+function startNewRound() {
+    let isConfirm = confirm("Вы уверены, что хотите начать новый раунд с текущими игроками?");
+    if (isConfirm) {
+        for (let i = 0; i < playersData.length; i++) {
+            playersData[i].currentPoints = gameRules.numberOfLives;
+            playersData[i].pointsList = [];
+        }
+        removeAllCards();
+        displayCards(playersData);
+    } else {
+        return;
+    }
+}
 
+function displaySettings() {
+    usersNumberOfRules = prompt('Какое количество жизней у каждого игрока на начало игры?', '');
+    if (usersNumberOfRules === undefined || !isNumeric(usersNumberOfRules) || usersNumberOfRules <= 0) {
+        alert('Сумма очков должна быть положительным числом!');
+        return;
+    } else {
+        gameRules.numberOfLives = usersNumberOfRules;
+        removeAllCards();
+        displayCards(playersData);
+    }
+}
 
+function displayGameRules() {
+    alert('Функционал находится в разработке!');
+}
 
+// всё для работы модального окна:
 
-// function addCardData(name) {
-//     cardData(cardsData.length) = {
-//         playerName: name,
-//         currentPoints: '',
-//         pointsList: [],
-//         playerCardPhoto: ''
-//     }
-// }
-// addListenerToPlayerCards();
-//
-// function addListenerToPlayerCards() {
-//     let playerCarts = document.querySelectorAll(".player-card")
-//     for (let i = 0; i < playerCarts.length; i++) {
-//         playerCarts[i].addEventListener('click', addPointsToUser);
-//     }
-// }
-//
-// function addPointsToUser() {
-//     if(event.target.classList.find('player-card__add-points-btn')) {
-//         const name = event.currentTarget.querySelector('.player-card__name').textContent
-//         if(name) {
-//             alert(playersData.findIndex(name));
-//         }
-//     }
-// }
+// конец кода для модального окна
