@@ -6,6 +6,7 @@
 
 body {
     margin: 0;
+    position: relative;
 }
 
 html,
@@ -288,4 +289,106 @@ main {
 .page-footer a {
     color: #fff;
     display: none;
+}
+
+/*MODAL WINDOWS STYLES*/
+.modal-window {
+    max-width: 350px;
+    max-height: 350px;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #b71c1c;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    z-index: 10;
+}
+.modal-window.modal-window_display {
+    display: block;
+}
+.modal-window h2 {
+    margin: 0 0 5px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-size: 16px;
+}
+.modal-window__content {
+    position: relative;
+    padding: 10px;
+    color: #fff;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-size: 13px;
+}
+.modal-window__close-btn {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+    width: 30px;
+    height: 30px;
+    background-color: #b71c1c;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0px;
+}
+.modal-window__close-btn_inner {
+    position: relative;
+}
+.modal-window__close-btn_inner svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal-window__close-btn:hover,
+.game-settings-form button:hover {
+    background-color: #d32f2f;
+}
+.modal-background {
+    display: none;
+    background-color: rgba(80, 80, 80, 0.8);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+.modal-background.modal-background_display {
+    display: block;
+}
+/*END MODAL WINDOWS STYLES*/
+
+.game-settings-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.game-settings-form label {
+    margin: 10px;
+    font-size: 14px;
+}
+.game-settings-form button {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    background-color: #b71c1c;
+    cursor: pointer;
+}
+.game-settings-form input {
+    background-color: #d32f2f;
+}
+.game-settings-form input,
+.game-settings-form button {
+    height: 30px;
+    width: 140px;
+    border: 1px solid #fff;
+    color: #fff;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    font-size: 14px;
+    text-align: center;
 }

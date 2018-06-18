@@ -16,7 +16,7 @@
             <a href="#" class="main-menu__item start-new-game-btn">Новая игра</a>
             <a href="#" class="main-menu__item start-new-round-btn">Новый раунд</a>
             <a href="#" class="main-menu__item game-rules-btn">Правила игры</a>
-            <a href="#" class="main-menu__item settings-btn">Настройки</a>
+            <a href="#" class="main-menu__item settings-btn" onclick="displayModalWindow('settings-modal-window')">Настройки</a>
         </nav>
     </header>
     <main>
@@ -92,8 +92,33 @@
         <a href="https://ru.freepik.com/free-vector/_1528574.htm">Большое спасибо Freepik за бесплатные вектора</a>
         <a href="https://ru.freepik.com/free-vector/_887838.htm">Большое спасибо Freepik за бесплатные вектора</a>
     </footer>
-
-
+    <div id="settings-modal-window" class="modal-window">
+        <div class="modal-window__content">
+            <h2>Настройки игры</h2>
+            <button class="modal-window__close-btn" onclick="closeModalWindow()" title="Закрыть окно">
+                <div class="modal-window__close-btn_inner">
+                    <svg width="24" height="24">
+                      <line stroke="white"
+                        stroke-width="3"
+                        x1="5" y1="5"
+                            x2="19" y2="19"></line>
+                      <line stroke="white"
+                        stroke-width="3"
+                        x1="5" y1="19"
+                            x2="19" y2="5"></line>
+                    </svg>
+                </div>
+            </button>
+            <form name="game-settings" id="game-settings" class="game-settings-form">
+                <label for="number-of-lives">Колличество жизней на начало игры:</label>
+                <input id="number-of-lives" name="number-of-lives" type="text" value="500">
+                <label for="number-of-players">Максимальное колличество игроков:</label>
+                <input id="number-of-players" name="number-of-players" type="text" value="10">
+                <button type="button" class="game-settings-form-btn" onclick="applySettings()">Применить</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-background"></div>
     <script src="js/script.js"></script>
 </body>
 </html>

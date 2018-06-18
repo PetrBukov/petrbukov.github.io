@@ -1,30 +1,30 @@
 // a temporary base for the storage of information about the game
 let playersData = [
     // {
-    //  playerName: 'Рик Санчез',
-    //  currentPoints: 0,
-    //  pointsList: [0, -250, -90, 0],
+    // 	playerName: 'Рик Санчез',
+    // 	currentPoints: 0,
+    // 	pointsList: [0, -250, -90, 0],
     //     playerAvatar: 'img/player-card__photo/9.png',
     //     avatarModificator: 40,
     // },
     // {
-    //  playerName: 'Морти Смит',
-    //  currentPoints: 40,
-    //  pointsList: [-200, 0, -100, -160, 9],
+    // 	playerName: 'Морти Смит',
+    // 	currentPoints: 40,
+    // 	pointsList: [-200, 0, -100, -160, 9],
     //     playerAvatar: 'img/player-card__photo/11.png',
     //     avatarModificator: 50,
     // },
     // {
-    //  playerName: 'Джерри Смит',
-    //  currentPoints: 1,
-    //  pointsList: [-200, -200, 0, -99],
+    // 	playerName: 'Джерри Смит',
+    // 	currentPoints: 1,
+    // 	pointsList: [-200, -200, 0, -99],
     //     playerAvatar: 'img/player-card__photo/2.png',
     //     avatarModificator: 70,
     // },
     // {
-    //  playerName: 'Бэт Смит',
-    //  currentPoints: 480,
-    //  pointsList: [-5, -5, -5, -5],
+    // 	playerName: 'Бэт Смит',
+    // 	currentPoints: 480,
+    // 	pointsList: [-5, -5, -5, -5],
     //     playerAvatar: 'img/player-card__photo/3.png',
     //     avatarModificator: 8,
     // }
@@ -32,6 +32,7 @@ let playersData = [
 
 let gameRules = {
     numberOfLives: 500,
+    maxNumberOfPlayers: 10
 };
 
 // Code
@@ -45,9 +46,6 @@ let btnNewGame = document.querySelector('.start-new-game-btn');
 let btnNewRound = document.querySelector('.start-new-round-btn');
     btnNewRound.addEventListener('click', startNewRound);
 
-let btnSettings = document.querySelector('.settings-btn');
-    btnSettings.addEventListener('click', displaySettings);
-
 let btnGameRules = document.querySelector('.game-rules-btn');
     btnGameRules.addEventListener('click', displayGameRules);
 
@@ -59,6 +57,12 @@ function displayCards(data) {
         let card = createCard(data[i]);
         card.id = 'player-' + i;
         cardsList.appendChild(card);
+    }
+    for (let k = 0; k < data.length; k++) {
+        if (data[k].currentPoints <= 0) {
+            alert('Конец игры!');
+            return;
+        }
     }
 };
 
@@ -78,9 +82,9 @@ function createCard(playerData) {
     let playerCardPhoto = makeElement('div', 'player-card__photo');
     listItem.appendChild(playerCardPhoto);
 
-    if (playerData.currentPoints <= 0) {
-        listItem.classList.add('wasted');
-    }
+    // if (playerData.currentPoints <= 0) {
+    //     listItem.classList.add('wasted');
+    // }
 
     let cardImg = makeElement('img', 'player-card__img');
     cardImg.src = playerData.playerAvatar;
@@ -149,11 +153,24 @@ function addPoints() {
     }
     let playerIndex = takeNumberFromString(playerId);
     let pointsListLength = playersData[playerIndex].pointsList.length;
-    playersData[playerIndex].pointsList[pointsListLength] = '-'+pointsValue;
-    playersData[playerIndex].currentPoints -= pointsValue;
-
-    removeAllCards();
-    displayCards(playersData);
+    let isAllRoundsWrote = true;
+    for (i = 0; i < playersData.length; i++) {
+        if (pointsListLength > playersData[i].pointsList.length) {
+            isAllRoundsWrote = false;
+            alert('Заполните данные о предыдущих раундах у остальных игроков!');
+            return
+        }
+    }
+    if (isAllRoundsWrote) {
+        if (pointsValue == 0) {
+            playersData[playerIndex].pointsList[pointsListLength] = '0 - Вы великолепны!'
+        } else {
+            playersData[playerIndex].pointsList[pointsListLength] = '-'+pointsValue;
+        }
+        playersData[playerIndex].currentPoints -= pointsValue;
+        removeAllCards();
+        displayCards(playersData);
+    }
 };
 
 function removeAllCards() {
@@ -221,13 +238,16 @@ function startNewRound() {
     }
 }
 
-function displaySettings() {
-    usersNumberOfRules = prompt('Какое количество жизней у каждого игрока на начало игры?', '');
-    if (usersNumberOfRules === undefined || !isNumeric(usersNumberOfRules) || usersNumberOfRules <= 0) {
-        alert('Сумма очков должна быть положительным числом!');
-        return;
+function applySettings() {
+    let newNumberOfLives = document.querySelector("#number-of-lives").value;
+    let newMaxNumberOfPlayers = document.querySelector("#number-of-players").value;
+    if (newNumberOfLives === undefined || !isNumeric(newNumberOfLives) || newNumberOfLives < 0 || newMaxNumberOfPlayers === undefined || !isNumeric(newMaxNumberOfPlayers) || newMaxNumberOfPlayers < 0) {
+        alert('Колличество жизней и количествоигроков должно быть положительным числом!');
+        return
     } else {
-        gameRules.numberOfLives = usersNumberOfRules;
+        gameRules.numberOfLives = newNumberOfLives;
+        gameRules.maxNumberOfPlayers = newMaxNumberOfPlayers;
+        closeModalWindow()
         removeAllCards();
         displayCards(playersData);
     }
@@ -238,5 +258,19 @@ function displayGameRules() {
 }
 
 // всё для работы модального окна:
+
+let backgroundModalWindow = document.querySelector('.modal-background');
+    backgroundModalWindow.addEventListener('click', closeModalWindow);
+
+function closeModalWindow() {
+    document.querySelector(".modal-window_display").classList.toggle("modal-window_display");
+    document.querySelector(".modal-background").classList.toggle("modal-background_display");
+}
+
+function displayModalWindow(modalWindowId) {
+    let cssSelector = "#" + modalWindowId;
+    document.querySelector(cssSelector).classList.toggle("modal-window_display");
+    document.querySelector(".modal-background").classList.toggle("modal-background_display");
+}
 
 // конец кода для модального окна
