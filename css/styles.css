@@ -11,23 +11,9 @@ body {
 
 html,
 body {
-    height: 100%;
+    min-height: 100vh;
 }
 
-/*.table-layout {*/
-    /*display: table;*/
-    /*width: 100%;*/
-    /*height: 100%;*/
-/*}*/
-
-/*.header-table-row,*/
-/*.footer-table-row {*/
-    /*display: table-row;*/
-    /*height: 1px;*/
-/*}*/
-/*.main-table-row {*/
-    /*height: 100%;*/
-/*}*/
 .page-header,
 .page-footer {
     background-color: #b71c1c;
@@ -72,17 +58,19 @@ body {
     padding-left: 10px;
     transition: 0.5s;
     background-color: #b71c1c;
+    border: none;
 }
 
 .main-menu__item:hover {
     background-color: #d32f2f;
+    cursor: pointer;
 }
 
 main {
     background-color: #505050;
     display: flex;
     flex-direction: column;
-    min-height: calc(100% - 100px);
+    min-height: calc(100vh - 120px);
 }
 
 .cards-list {
@@ -114,11 +102,7 @@ main {
 .player-card:hover {
     box-shadow: #2f2f2f 4px 4px 10px;
 }
-/*.player-card:hover img {*/
-    /*-webkit-animation: colorFlow 5s infinite ease;*/
-    /*-o-animation: colorFlow 5s infinite ease;*/
-    /*animation: colorFlow 5s infinite ease;*/
-/*}*/
+
 .player-card__header {
     display: flex;
     justify-content: space-between;
@@ -268,6 +252,7 @@ main {
     cursor: pointer;
     order: 1;
     box-shadow: #2f2f2f 0px 0px 0px;
+    border: none;
 }
 .add-player-btn:hover {
     opacity: 1;
@@ -279,16 +264,33 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    height: 70px;
     color: #fff;
     font-size: 14px;
     text-decoration: none;
     font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
-    font-weight: bold;
+}
+.page-footer span {
+    display: block;
+    text-align: center;
+    margin: 9px;
 }
 .page-footer a {
     color: #fff;
-    display: none;
+    text-decoration: none;
+}
+.page-footer a:hover,
+.page-footer button:hover {
+    color: #bdbdbd;
+    cursor: pointer;
+}
+.page-footer button {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
+    border: none;
+    background-color: transparent;
 }
 
 /*MODAL WINDOWS STYLES*/
@@ -296,7 +298,7 @@ main {
     max-width: 350px;
     max-height: 350px;
     display: none;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -304,9 +306,11 @@ main {
     border: 1px solid #fff;
     border-radius: 5px;
     z-index: 10;
+    width: 85%;
 }
 .modal-window.modal-window_display {
     display: block;
+    animation: zoom-in 0.2s;
 }
 .modal-window h2 {
     margin: 0 0 5px 0;
@@ -338,14 +342,24 @@ main {
 .modal-window__close-btn_inner {
     position: relative;
 }
-.modal-window__close-btn_inner svg {
+.modal-window__close-btn_inner::after,
+.modal-window__close-btn_inner::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 2px;
+    background-color: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(-45deg);
 }
+.modal-window__close-btn_inner::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
 .modal-window__close-btn:hover,
-.game-settings-form button:hover {
+.modal-window__form button:hover {
     background-color: #d32f2f;
 }
 .modal-background {
@@ -358,32 +372,61 @@ main {
     left: 0;
     z-index: 5;
 }
+
+@keyframes soft-appearance {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes zoom-in {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(0.7);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
 .modal-background.modal-background_display {
     display: block;
+    animation: soft-appearance 0.1s;
 }
 /*END MODAL WINDOWS STYLES*/
 
-.game-settings-form {
+.modal-window__form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.game-settings-form label {
+.modal-window__form label {
     margin: 10px;
     font-size: 14px;
 }
-.game-settings-form button {
+.modal-window__form button {
     margin-top: 15px;
     margin-bottom: 5px;
     background-color: #b71c1c;
     cursor: pointer;
 }
-.game-settings-form input {
+.modal-window__form input {
     background-color: #d32f2f;
 }
-.game-settings-form input,
-.game-settings-form button {
+.modal-window__form input,
+.modal-window__form button {
     height: 30px;
     width: 140px;
     border: 1px solid #fff;
@@ -391,4 +434,19 @@ main {
     font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
     font-size: 14px;
     text-align: center;
+}
+.modal-window__form p,
+.modal-window__form a {
+    margin: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+}
+.modal-window__form a:hover {
+    color: #bdbdbd;
+}
+.modal-window__form ul {
+    padding: 0px;
 }
