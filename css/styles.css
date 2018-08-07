@@ -186,17 +186,19 @@ main {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 100%;
+    border: 1px solid #b71c1c;
 }
 .player-card__footer input {
     flex-grow: 1;
     padding: 5px;
-    border: 1px solid #b71c1c;
     color: #b71c1c;
     font-size: 14px;
     text-decoration: none;
     font-family: 'Comfortaa', "Arial Rounded MT Bold", Arial, sans-serif;
     font-weight: bold;
     width: 85%;
+    border: none;
+    border-radius: 0px;
 }
 .player-card__footer button {
     padding: 5px;
