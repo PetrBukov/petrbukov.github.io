@@ -39,6 +39,55 @@ function displayCards(data) {
     }).join('');
 
     localStorage.setItem('playersData', JSON.stringify(data));
+
+    if(isGameOver(data)) {
+        console.log(3);
+        displayWinners(data);
+        console.log(3);
+    }
+}
+
+function isGameOver(data) {
+    let isGameOver = false;
+    data.forEach(playerInfo => {
+        if (playerInfo.currentPoints <= 0) {
+            let pointsListLength = playerInfo.pointsList.length;
+            data.forEach(playerInfo => pointsListLength === playerInfo.pointsList.length ? isGameOver = true : isGameOver = false)
+        }
+    });
+    return isGameOver;
+}
+
+function displayWinners(data) {
+    let winnersList = data.slice().sort((a, b) => a.currentPoints > b.currentPoints ? -1 : 1);
+    let winPointValue = winnersList[0].currentPoints;
+    winnersList = winnersList.filter(player => (player.currentPoints === winPointValue));
+    if (winnersList.length === 1) {
+        console.log(winnersList)
+        console.log('один')
+        const formContent = `
+            <form name="congratulations" id="congratulations" class="modal-window__form">
+                <p>Поздравляем игрока с именем ${winnersList[0].playerName}. Который сумел сохранить максимальное колличество очков (${winnersList[0].currentPoints})!</p>
+                <button type="button" onclick="closeModalWindow();">OK</button>
+            </form>
+        `
+        callModalWindow('Конец Игры!', formContent)
+        return;
+    } else {
+        console.log(winnersList)
+        console.log('несколько')
+        const winnersNames = winnersList.map(playerInfo => `<li>${playerInfo.playerName}</li>`).join('');
+        const formContent = `
+            <form name="congratulations" id="congratulations" class="modal-window__form">
+                <p>Поздравляем победителей:</p>
+                <ul>${winnersNames}</ul>
+                <p>Которые сумели сохранить максимальное колличество очков (${winnersList[0].currentPoints})!, </p>
+                <button type="button" onclick="closeModalWindow();">OK</button>
+            </form>
+        `
+        callModalWindow('Конец Игры!', formContent)
+        return;
+    }
 }
 
 function createCard(playerData) {
@@ -59,8 +108,10 @@ function createCard(playerData) {
                 ${playerCardPointsList}
             </div>
             <div class="player-card__footer">
-                <input class="player-card__input" type="number">
-                <button class="player-card__add-points-btn" data-player-id="${playerData.playerId}">OK</button>
+                <form name="player-card-form" id="player-card-form" class="player-card__footer-form">
+                    <input class="player-card__input" type="text">
+                    <button class="player-card__add-points-btn" data-player-id="${playerData.playerId}">OK</button>
+                </form>
             </div>
         </div>
     `;
@@ -116,6 +167,13 @@ function createNewPlayer() {
     closeModalWindow()
 }
 
+// function isAllRoundWrote(id) {
+//     const pointsListLength = playersData[id].pointsList.length;
+//     let isAllRoundWrote = true;
+//     playersData.forEach(player => pointsListLength > player.pointsList.length ? isAllRoundWrote = false : '');
+//     return isAllRoundWrote;
+// }
+
 function addPoints(e) {
     if (!e.target.matches('button')) return;
     const playerId = e.target.dataset.playerId;
@@ -133,7 +191,7 @@ function addPoints(e) {
     }
     // проверяем у всех ли игроков очки предыдущих раундов записаны
     const pointsListLength = playersData[playerId].pointsList.length;
-    isAllRoundWrote = true;
+    let isAllRoundWrote = true;
     playersData.forEach(player => pointsListLength > player.pointsList.length ? isAllRoundWrote = false : '')
     if (!isAllRoundWrote) {
         const formContent = `
@@ -147,9 +205,9 @@ function addPoints(e) {
     }
     // добавляем сумму очков в pointsList игрока
     if (pointsValue == 0) {
-        playersData[playerId].pointsList[pointsListLength] = '🎈0 - Вы великолепны!🎈'
+        playersData[playerId].pointsList.push('🎈0 - Вы великолепны!🎈');
     } else {
-        playersData[playerId].pointsList[pointsListLength] = '-'+pointsValue;
+        playersData[playerId].pointsList.push('-'+pointsValue);
     }
 
     playersData[playerId].currentPoints -= pointsValue;
