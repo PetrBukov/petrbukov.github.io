@@ -66,7 +66,7 @@ function displayWinners(data) {
         console.log('один')
         const formContent = `
             <form name="congratulations" id="congratulations" class="modal-window__form">
-                <p>Поздравляем игрока с именем ${winnersList[0].playerName}. Который занял почётное первое место и сохранил ${winnersList[0].currentPoints} ❤️!</p>
+                <p>Поздравляем игрока с именем ${winnersList[0].playerName}. Который занял почётное первое место и сохранил ${winnersList[0].currentPoints} 💗</p>
                 <button type="button" onclick="closeModalWindow();">OK</button>
             </form>
         `
@@ -80,7 +80,7 @@ function displayWinners(data) {
             <form name="congratulations" id="congratulations" class="modal-window__form">
                 <p>Поздравляем победителей:</p>
                 <ul>${winnersNames}</ul>
-                <p>Они делят первое место. Им удалось сохранить ${winnersList[0].currentPoints} ❤️!, </p>
+                <p>Они делят первое место. Им удалось сохранить ${winnersList[0].currentPoints} 💗️</p>
                 <button type="button" onclick="closeModalWindow();">OK</button>
             </form>
         `
