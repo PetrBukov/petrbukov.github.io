@@ -449,7 +449,8 @@ main {
     text-align: center;
 }
 .modal-window__form p,
-.modal-window__form a {
+.modal-window__form a,
+.modal-window__form ul {
     margin: 10px;
     font-size: 14px;
     line-height: 20px;
@@ -463,4 +464,5 @@ main {
 .modal-window__form ul {
     padding: 0px;
 }
+
 /*END MODAL WINDOWS STYLES*/

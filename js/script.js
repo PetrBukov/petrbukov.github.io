@@ -41,21 +41,20 @@ function displayCards(data) {
     localStorage.setItem('playersData', JSON.stringify(data));
 
     if(isGameOver(data)) {
-        console.log(3);
+        console.log(1);
         displayWinners(data);
-        console.log(3);
+    } else {
+        console.log(0)
     }
 }
 
 function isGameOver(data) {
-    let isGameOver = false;
-    data.forEach(playerInfo => {
-        if (playerInfo.currentPoints <= 0) {
-            let pointsListLength = playerInfo.pointsList.length;
-            data.forEach(playerInfo => pointsListLength === playerInfo.pointsList.length ? isGameOver = true : isGameOver = false)
-        }
-    });
-    return isGameOver;
+    let answer = data.some(player => player.currentPoints <= 0);
+    if (answer) {
+        const pointsListLength = data[0].pointsList.length;
+        answer = data.every(player => pointsListLength === player.pointsList.length);
+    }
+    return answer;
 }
 
 function displayWinners(data) {
@@ -67,7 +66,7 @@ function displayWinners(data) {
         console.log('один')
         const formContent = `
             <form name="congratulations" id="congratulations" class="modal-window__form">
-                <p>Поздравляем игрока с именем ${winnersList[0].playerName}. Который сумел сохранить максимальное колличество очков (${winnersList[0].currentPoints})!</p>
+                <p>Поздравляем игрока с именем ${winnersList[0].playerName}. Который занял почётное первое место и сохранил ${winnersList[0].currentPoints} очков!</p>
                 <button type="button" onclick="closeModalWindow();">OK</button>
             </form>
         `
@@ -81,7 +80,7 @@ function displayWinners(data) {
             <form name="congratulations" id="congratulations" class="modal-window__form">
                 <p>Поздравляем победителей:</p>
                 <ul>${winnersNames}</ul>
-                <p>Которые сумели сохранить максимальное колличество очков (${winnersList[0].currentPoints})!, </p>
+                <p>Они делят первое место. Им удалось сохранить ${winnersList[0].currentPoints} очков!, </p>
                 <button type="button" onclick="closeModalWindow();">OK</button>
             </form>
         `
@@ -110,7 +109,7 @@ function createCard(playerData) {
             <div class="player-card__footer">
                 <form name="player-card-form" id="player-card-form" class="player-card__footer-form">
                     <input class="player-card__input" type="text">
-                    <button class="player-card__add-points-btn" data-player-id="${playerData.playerId}">OK</button>
+                    <button type="button" class="player-card__add-points-btn" data-player-id="${playerData.playerId}">OK</button>
                 </form>
             </div>
         </div>
@@ -175,7 +174,7 @@ function createNewPlayer() {
 // }
 
 function addPoints(e) {
-    if (!e.target.matches('button')) return;
+    if (!e.target.matches('.player-card__add-points-btn')) return;
     const playerId = e.target.dataset.playerId;
     const input = document.querySelector(`.player-card[data-player-id="${playerId}"] .player-card__input`);
     const pointsValue = input.value;
