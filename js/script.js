@@ -24,7 +24,9 @@ const btnGameSettings = document.querySelector('[data-button-name="game-settings
 btnGameSettings.addEventListener('click', editGameSettings);
 
 const modalWindow = document.querySelector('.modal-window');
+modalWindow.addEventListener('submit', createNewPlayer);
 const backgroundModalWindow = document.querySelector(".modal-background");
+backgroundModalWindow.addEventListener('click', closeModalWindow);
 
 const btnFreePik = document.querySelector('[data-button-name="thanks"]');
 btnFreePik.addEventListener('click', callModalFreePik);
@@ -80,7 +82,7 @@ function displayWinners(data) {
             <form name="congratulations" id="congratulations" class="modal-window__form">
                 <p>Поздравляем победителей:</p>
                 <ul>${winnersNames}</ul>
-                <p>Они делят первое место. Им удалось сохранить ${winnersList[0].currentPoints} 💗️</p>
+                <p>Они делят первое место. Им удалось сохранить ${winnersList[0].currentPoints} 💗</p>
                 <button type="button" onclick="closeModalWindow();">OK</button>
             </form>
         `
@@ -132,13 +134,16 @@ function callModalNewPlayer(e) {
         <form name="new-player" id="new-player" class="modal-window__form">
             <label for="new-player-name">Введите имя игрока:</label>
             <input id="new-player-name" name="new-player-name" type="text">
-            <button type="button" onclick="createNewPlayer()">Создать</button>
+            <button type="submit">Создать</button>
         </form>
     `
     callModalWindow('Добавить игрока', formContent)
 }
 
-function createNewPlayer() {
+function createNewPlayer(e) {
+    e.preventDefault();
+    if (!e.target.matches('#new-player')) return; 
+
     const playerIndex = playersData.length;
     playerName = document.querySelector('#new-player-name').value;
     if (playerName === null || playerName === '') {
@@ -165,13 +170,6 @@ function createNewPlayer() {
     displayCards(playersData);
     closeModalWindow()
 }
-
-// function isAllRoundWrote(id) {
-//     const pointsListLength = playersData[id].pointsList.length;
-//     let isAllRoundWrote = true;
-//     playersData.forEach(player => pointsListLength > player.pointsList.length ? isAllRoundWrote = false : '');
-//     return isAllRoundWrote;
-// }
 
 function addPoints(e) {
     if (!e.target.matches('.player-card__add-points-btn')) return;
