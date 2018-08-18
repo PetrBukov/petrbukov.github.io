@@ -8,7 +8,7 @@ let gameSettings = {
 };
 
 const cardsList = document.querySelector('.cards-list');
-cardsList.addEventListener('click', addPoints);
+cardsList.addEventListener('submit', addPoints);
 cardsList.addEventListener('click', callModalNewPlayer);
 
 const btnNewGame = document.querySelector('[data-button-name="new-game"]');
@@ -25,6 +25,7 @@ btnGameSettings.addEventListener('click', editGameSettings);
 
 const modalWindow = document.querySelector('.modal-window');
 modalWindow.addEventListener('submit', createNewPlayer);
+
 const backgroundModalWindow = document.querySelector(".modal-background");
 backgroundModalWindow.addEventListener('click', closeModalWindow);
 
@@ -36,18 +37,17 @@ displayCards(playersData);
 // functions
 
 function displayCards(data) {
-    cardsList.innerHTML = '<button class="add-player-btn">Добавить игрока...</button>' + data.map(playerInfo => {
+    cardsList.innerHTML = '<button class="add-player-btn" type="button">Добавить игрока...</button>' + data.map(playerInfo => {
         return createCard(playerInfo);
     }).join('');
 
     localStorage.setItem('playersData', JSON.stringify(data));
 
+    document.querySelector('.add-player-btn').focus();
+
     if(isGameOver(data)) {
-        console.log(1);
         displayWinners(data);
-    } else {
-        console.log(0)
-    }
+    } 
 }
 
 function isGameOver(data) {
@@ -109,9 +109,9 @@ function createCard(playerData) {
                 ${playerCardPointsList}
             </div>
             <div class="player-card__footer">
-                <form name="player-card-form" id="player-card-form" class="player-card__footer-form">
+                <form name="player-card-form" id="player-card-form" class="player-card__footer-form"  data-player-id="${playerData.playerId}">
                     <input class="player-card__input" type="text">
-                    <button type="button" class="player-card__add-points-btn" data-player-id="${playerData.playerId}">OK</button>
+                    <button type="submit" class="player-card__add-points-btn">OK</button>
                 </form>
             </div>
         </div>
@@ -138,6 +138,7 @@ function callModalNewPlayer(e) {
         </form>
     `
     callModalWindow('Добавить игрока', formContent)
+    document.getElementById("new-player-name").focus();
 }
 
 function createNewPlayer(e) {
@@ -172,7 +173,8 @@ function createNewPlayer(e) {
 }
 
 function addPoints(e) {
-    if (!e.target.matches('.player-card__add-points-btn')) return;
+    e.preventDefault();
+    if (!e.target.matches('#player-card-form')) return;
     const playerId = e.target.dataset.playerId;
     const input = document.querySelector(`.player-card[data-player-id="${playerId}"] .player-card__input`);
     const pointsValue = input.value;
